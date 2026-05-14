@@ -1,5 +1,5 @@
 Analysis & Elaboration report for FSM_Timer_demo
-Sun May 10 23:37:30 2026
+Mon May 11 02:02:14 2026
 Quartus Prime Version 25.1std.0 Build 1129 10/21/2025 SC Lite Edition
 
 
@@ -9,8 +9,10 @@ Quartus Prime Version 25.1std.0 Build 1129 10/21/2025 SC Lite Edition
   1. Legal Notice
   2. Analysis & Elaboration Summary
   3. Parallel Compilation
-  4. Analysis & Elaboration Settings
-  5. Analysis & Elaboration Messages
+  4. Parameter Settings for User Entity Instance: clk_div:clk_div_ins
+  5. Parameter Settings for User Entity Instance: FSM_Timer_demo:timer
+  6. Analysis & Elaboration Settings
+  7. Analysis & Elaboration Messages
 
 
 
@@ -37,10 +39,10 @@ on the Quartus Prime software download page.
 +---------------------------------------------------------------------------------+
 ; Analysis & Elaboration Summary                                                  ;
 +-------------------------------+-------------------------------------------------+
-; Analysis & Elaboration Status ; Failed - Sun May 10 23:37:30 2026               ;
+; Analysis & Elaboration Status ; Successful - Mon May 11 02:02:14 2026           ;
 ; Quartus Prime Version         ; 25.1std.0 Build 1129 10/21/2025 SC Lite Edition ;
 ; Revision Name                 ; FSM_Timer_demo                                  ;
-; Top-level Entity Name         ; FSM_Timer_demo                                  ;
+; Top-level Entity Name         ; top_seq_timer                                   ;
 ; Family                        ; MAX II                                          ;
 +-------------------------------+-------------------------------------------------+
 
@@ -61,13 +63,37 @@ on the Quartus Prime software download page.
 +----------------------------+-------------+
 
 
++------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: clk_div:clk_div_ins ;
++----------------+----------+--------------------------------------+
+; Parameter Name ; Value    ; Type                                 ;
++----------------+----------+--------------------------------------+
+; FREQ_IN        ; 50000000 ; Signed Integer                       ;
+; PERIOD_OUT     ; 1        ; Signed Integer                       ;
++----------------+----------+--------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: FSM_Timer_demo:timer ;
++----------------+-------+------------------------------------------+
+; Parameter Name ; Value ; Type                                     ;
++----------------+-------+------------------------------------------+
+; S0             ; 0000  ; Unsigned Binary                          ;
+; S1             ; 0001  ; Unsigned Binary                          ;
+; S2             ; 0010  ; Unsigned Binary                          ;
+; S3             ; 0011  ; Unsigned Binary                          ;
++----------------+-------+------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
 +------------------------------------------------------------------------------------------------------------+
 ; Analysis & Elaboration Settings                                                                            ;
 +------------------------------------------------------------------+--------------------+--------------------+
 ; Option                                                           ; Setting            ; Default Value      ;
 +------------------------------------------------------------------+--------------------+--------------------+
 ; Device                                                           ; EPM240T100C5       ;                    ;
-; Top-level entity name                                            ; FSM_Timer_demo     ; FSM_Timer_demo     ;
+; Top-level entity name                                            ; top_seq_timer      ; FSM_Timer_demo     ;
 ; Family name                                                      ; MAX II             ; Cyclone V          ;
 ; Use smart compilation                                            ; Off                ; Off                ;
 ; Enable parallel Assembler and Timing Analyzer during compilation ; On                 ; On                 ;
@@ -138,17 +164,30 @@ on the Quartus Prime software download page.
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Elaboration
     Info: Version 25.1std.0 Build 1129 10/21/2025 SC Lite Edition
-    Info: Processing started: Sun May 10 23:37:25 2026
+    Info: Processing started: Mon May 11 02:02:08 2026
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off FSM_Timer_demo -c FSM_Timer_demo --analysis_and_elaboration
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 16 of the 16 processors detected
-Error (10170): Verilog HDL syntax error at FSM_Timer_demo.v(81) near text: "endmodule";  expecting "end". Check for and fix any syntax errors that appear immediately before or at the specified keyword. The Intel FPGA Knowledge Database contains many articles with specific details on how to resolve this error. Visit the Knowledge Database at https://www.altera.com/support/support-resources/knowledge-base/search.html and search for this specific error message number. File: C:/Users/USER/Desktop/FSM_demo/FSM_Timer_demo/FSM_Timer_demo.v Line: 81
-Info (12021): Found 0 design units, including 0 entities, in source file fsm_timer_demo.v
 Info (12021): Found 0 design units, including 0 entities, in source file testbench.v
-Error: Quartus Prime Analysis & Elaboration was unsuccessful. 1 error, 1 warning
-    Error: Peak virtual memory: 4716 megabytes
-    Error: Processing ended: Sun May 10 23:37:30 2026
-    Error: Elapsed time: 00:00:05
-    Error: Total CPU time (on all processors): 00:00:16
+Info (12021): Found 1 design units, including 1 entities, in source file fsm_timer_demo.v
+    Info (12023): Found entity 1: FSM_Timer_demo File: C:/Users/USER/Desktop/FSM_demo/FSM_Timer_demo/FSM_Timer_demo/FSM_Timer_demo.v Line: 12
+Info (12021): Found 1 design units, including 1 entities, in source file clk_div.v
+    Info (12023): Found entity 1: clk_div File: C:/Users/USER/Desktop/FSM_demo/FSM_Timer_demo/FSM_Timer_demo/clk_div.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file bcd_7seg.v
+    Info (12023): Found entity 1: bcd_7seg File: C:/Users/USER/Desktop/FSM_demo/FSM_Timer_demo/FSM_Timer_demo/bcd_7seg.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file top_seq_timer.v
+    Info (12023): Found entity 1: top_seq_timer File: C:/Users/USER/Desktop/FSM_demo/FSM_Timer_demo/FSM_Timer_demo/top_seq_timer.v Line: 2
+Info (12127): Elaborating entity "top_seq_timer" for the top level hierarchy
+Info (12128): Elaborating entity "clk_div" for hierarchy "clk_div:clk_div_ins" File: C:/Users/USER/Desktop/FSM_demo/FSM_Timer_demo/FSM_Timer_demo/top_seq_timer.v Line: 21
+Info (12128): Elaborating entity "FSM_Timer_demo" for hierarchy "FSM_Timer_demo:timer" File: C:/Users/USER/Desktop/FSM_demo/FSM_Timer_demo/FSM_Timer_demo/top_seq_timer.v Line: 30
+Warning (10230): Verilog HDL assignment warning at FSM_Timer_demo.v(57): truncated value with size 32 to match size of target (4) File: C:/Users/USER/Desktop/FSM_demo/FSM_Timer_demo/FSM_Timer_demo/FSM_Timer_demo.v Line: 57
+Warning (10230): Verilog HDL assignment warning at FSM_Timer_demo.v(63): truncated value with size 32 to match size of target (4) File: C:/Users/USER/Desktop/FSM_demo/FSM_Timer_demo/FSM_Timer_demo/FSM_Timer_demo.v Line: 63
+Warning (10230): Verilog HDL assignment warning at FSM_Timer_demo.v(69): truncated value with size 32 to match size of target (4) File: C:/Users/USER/Desktop/FSM_demo/FSM_Timer_demo/FSM_Timer_demo/FSM_Timer_demo.v Line: 69
+Info (12128): Elaborating entity "bcd_7seg" for hierarchy "bcd_7seg:seg7_timer" File: C:/Users/USER/Desktop/FSM_demo/FSM_Timer_demo/FSM_Timer_demo/top_seq_timer.v Line: 36
+Info: Quartus Prime Analysis & Elaboration was successful. 0 errors, 4 warnings
+    Info: Peak virtual memory: 4716 megabytes
+    Info: Processing ended: Mon May 11 02:02:14 2026
+    Info: Elapsed time: 00:00:06
+    Info: Total CPU time (on all processors): 00:00:15
 
 

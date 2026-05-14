@@ -1,0 +1,25 @@
+module clk_div (clk_out,clk_led, clk_in);
+
+input clk_in;
+output reg clk_out = 0;
+output reg clk_led = 0;
+
+//division factor
+parameter integer FREQ_IN = 50_000_000;
+parameter integer PERIOD_OUT = 1;
+localparam integer TICKS = (FREQ_IN *PERIOD_OUT)/2;
+
+//clocl generator
+integer tick_cnt = 0;
+
+always @(posedge clk_in) begin
+	if (tick_cnt == TICKS-1) begin
+		clk_out <= ~clk_out;
+		clk_led<=~clk_led;
+		tick_cnt<=0;
+		
+	end
+	
+	else tick_cnt <= tick_cnt+1;
+	end
+endmodule

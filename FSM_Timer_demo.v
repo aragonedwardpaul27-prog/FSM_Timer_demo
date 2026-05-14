@@ -1,82 +1,105 @@
-/*================================================
-		           FSM_Timer_demo
-==================================================
-Descripion:
-	
+/*==================================
+     
+====================================
+Description:
+
 Design Engineer:
-	Edward Paul M. Aragon ☻ 
+Gomez,Sergie D.
 
 Date:
-	11 May 2026
--------------------------------------------------*/
-module FSM_Timer_demo (out, state, timer, t, ovr, clk, rst_n);
- //ports
- input			t;
- input			ovr;
- input 			clk; 		//50mhz clock
- input 			rst_n;
- output reg 	out;
- output reg 	[3:0] 	timer;
- output reg 	[3:0] 	state;
+March 31 2026
+----------------------------------*/
+module FSM_Timer_demo(out,state,clk,rst_n,ovr,timer);
+// ports
+input            clk;
+input            rst_n;
+input            ovr;
+output     [3:0] timer;
+output reg       out;
+output reg [3:0] state;
 
- //state assignment
- localparam [1:0] S0 = 2'b00;
- localparam [1:0] S1 = 2'b01;
- localparam [1:0] S2 = 2'b10;
- localparam [1:0] S3 = 2'b11;
+// state assignment
+parameter [3:0] S0 = 4'b0000;
+parameter [3:0] S1 = 4'b0001;
+parameter [3:0] S2 = 4'b0010;
+parameter [3:0] S3 = 4'b0011;
+reg [3:0] nxt;//next state
+reg [3:0] pre;//present state
+reg [3:0] t=0;
+
+// input block
+always @(t,pre,ovr) begin
+    if (ovr) begin
+        nxt = S3;
+    end else begin
+        case (pre)
+            S0: nxt = (t==2)? S1:S0;
+            S1: nxt = (t==3)? S2:S1;
+            S2: nxt = (t==2)? S0:S2;
+            S3: nxt = (t==1)? S3:S0;
+            default: nxt = S0;
+        endcase
+    end
+end
  
- reg [1:0] nxt;
- reg [1:0] pre;
- 
- // input block
- always @ (t, ovr, pre) begin //check input and present state
-	case (pre) // if present state is:
-	S0: 		nxt =  (t==2) ? S1:S0;
-	S1: 		nxt =  (t==3) ? S2:S1;
-	S2: 		nxt =  (t==2) ? S0:S2;
-	S3: 		nxt =  (ovr==1) ? S3:S0;
-	default: nxt = S0;
-	
-	endcase
- end
- // sequential block
- always @ (posedge clk, negedge rst_n) begin
-	pre <= nxt;
-	if(pre == S0) begin
-		if (t==2) begin //check timer
-			nxt<=S1;
-			t<=0;
-		end
-		
-		else t<= t+1;
-	end
-	
-	if(pre == S1) begin
-		if (t==3) begin //check timer
-			nxt<=S2;
-			t<=0;
-		end
-		
-		else t<= t+1;
-	end
-	
-	if(pre == S2) begin
-		if (t==2) begin //check timer
-			nxt<=S0;
-			t<=0;
-		end
-		
-		else t<= t+1;
-	end
-	
-	if(pre == S3) begin
-		if (ovr) begin //check timer
-			nxt<=S3;
-			t<=0;
-		end
-		
-		else 
-			nxt <= pre;
-		end
- endmodule
- 
+// sequential block
+always @(posedge clk, negedge rst_n) begin
+    if(!rst_n) begin
+        t <= 0;
+        pre <= S0; 
+    end else begin
+        pre <= nxt;
+        
+        if(pre==S0) begin
+            if(t==2) begin
+                t <= 0;
+            end
+            else t <= t+1;
+        end
+        else if(pre==S1) begin
+            if(t==3) begin 
+                t <= 0;
+            end
+            else t <= t+1;
+        end
+        else if(pre==S2) begin
+            if(t==2) begin
+                t <= 0;
+            end
+            else t <= t+1;
+        end
+        else if(pre==S3) begin
+            t <= 0;
+        end
+    end
+end
+
+// output block
+always @(pre) begin
+    case(pre)
+        S0: begin
+                out = 0;
+                state = S0;
+             end
+        S1: begin
+                out = 1;
+                state = S1;
+             end
+        S2: begin
+                out = 0;
+                state = S2;
+             end
+        S3: begin
+                out = 1;
+                state = S3;
+             end
+        default: begin
+                out = 0;
+                state = S0;
+             end
+    endcase
+end
+
+assign timer = t;
+
+endmodule
